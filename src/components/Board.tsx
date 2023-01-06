@@ -1,7 +1,13 @@
 import Button from './Button';
 import Icon from './Icon';
 import BoardColumn from './BoardColumn';
-import Task from './Task';
+import Popup from './Popup';
+import TaskView from './TaskView';
+import TaskAdd from './TaskAdd';
+import TaskEdit from './TaskEdit';
+import BoardNew from './BoardNew';
+import BoardEdit from './BoardEdit';
+import TaskDelete from './TaskDelete';
 
 const Board = () => {
   const isEmpty = false;
@@ -25,8 +31,7 @@ const Board = () => {
       ) : (
         <>
           <BoardColumn />
-          <BoardColumn />
-          <Task />
+          {/* <BoardColumn /> */}
         </>
       )}
     </div>

@@ -20,22 +20,25 @@ interface ButtonProps {
 const Button = ({ classes, children, icon, size, type }: ButtonProps) => {
   const styles = {
     large: 'py-4 px-6 text-headingM',
-    medium: 'py-2 px-4 text text-bodyM',
+    medium: 'py-2 px-4 text text-bodyL',
     primary: 'bg-purple text-white hover:bg-purpleHover',
     secondary: 'bg-purple bg-opacity-10 text-purple hover:bg-opacity-25',
     destructive: 'text-white bg-red hover:bg-redHover',
   };
+  let clonedIcon;
 
-  const clonedIcon = React.cloneElement(icon as ReactElement<IconProps>, {
-    width: icon?.props.width,
-    height: icon?.props.height,
-    name: icon?.props.name,
-  });
+  if (icon) {
+    clonedIcon = React.cloneElement(icon as ReactElement<IconProps>, {
+      width: icon?.props.width,
+      height: icon?.props.height,
+      name: icon?.props.name,
+    });
+  }
 
   return (
     <button
       type="button"
-      className={`flex items-center gap-2 rounded-3xl font-bold text-center transition ${styles[size]} ${styles[type]} ${classes}`}
+      className={`flex items-center justify-center gap-2 rounded-3xl font-bold transition ${styles[size]} ${styles[type]} ${classes}`}
     >
       {icon ? <span>{clonedIcon}</span> : null}
       {children ? <span>{children}</span> : null}

@@ -10,7 +10,7 @@ const BoardColumn = () => {
         </span>
       </div>
       <div className="flex flex-col gap-4">
-        <TaskCard />
+        <TaskCard id={1} />
         <TaskCard />
       </div>
     </div>
