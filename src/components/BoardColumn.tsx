@@ -1,6 +1,10 @@
 import TaskCard from './TaskCard';
+import data from '../../data.json';
 
 const BoardColumn = () => {
+  const parsedData = JSON.parse(JSON.stringify(data));
+  const task = parsedData.boards[0].columns[0].tasks[0];
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center gap-2 text-headingS">
@@ -10,8 +14,8 @@ const BoardColumn = () => {
         </span>
       </div>
       <div className="flex flex-col gap-4">
-        <TaskCard id={1} />
-        <TaskCard />
+        <TaskCard task={task} />
+        {/* <TaskCard /> */}
       </div>
     </div>
   );

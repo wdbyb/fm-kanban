@@ -3,10 +3,11 @@ import { useState } from 'react';
 interface CheckboxProps {
   id: string;
   name: string;
+  title: string;
   checked?: boolean;
 }
 
-const Checkbox = ({ id, name, checked = false }: CheckboxProps) => {
+const Checkbox = ({ id, name, title, checked = false }: CheckboxProps) => {
   const styles = {
     light: {
       label: 'text-black bg-lightGray hover:bg-purple hover:bg-opacity-25',
@@ -30,7 +31,7 @@ const Checkbox = ({ id, name, checked = false }: CheckboxProps) => {
         checked={isCheck}
         onChange={() => setIsCheck(!isCheck)}
       />
-      <span className="ml-4">Text</span>
+      <span className="ml-4">{title}</span>
     </label>
   );
 };

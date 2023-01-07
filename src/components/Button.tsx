@@ -10,6 +10,7 @@ interface stylesOptions {
 }
 
 interface ButtonProps {
+  onClick?: () => void;
   size: keyof stylesOptions;
   type: keyof stylesOptions;
   classes?: string;
@@ -17,7 +18,14 @@ interface ButtonProps {
   icon?: ReactElement<IconProps>;
 }
 
-const Button = ({ classes, children, icon, size, type }: ButtonProps) => {
+const Button = ({
+  classes,
+  children,
+  icon,
+  size,
+  type,
+  onClick,
+}: ButtonProps) => {
   const styles = {
     large: 'py-4 px-6 text-headingM',
     medium: 'py-2 px-4 text text-bodyL',
@@ -37,6 +45,7 @@ const Button = ({ classes, children, icon, size, type }: ButtonProps) => {
 
   return (
     <button
+      onClick={onClick}
       type="button"
       className={`flex items-center justify-center gap-2 rounded-3xl font-bold transition ${styles[size]} ${styles[type]} ${classes}`}
     >

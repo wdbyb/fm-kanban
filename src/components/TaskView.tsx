@@ -1,39 +1,62 @@
+import { useState, useEffect } from 'react';
 import Icon from './Icon';
 import Checkbox from './Checkbox';
 import TaskSection from './TaskSection';
+import Popup from './Popup';
+import TaskEdit from './TaskEdit';
+import { Task, Subtask } from '../interfaces';
 
 interface TaskViewProps {
   onClose: () => void;
+  task: Task;
 }
 
-const TaskView = ({ onClose }: TaskViewProps) => {
+const TaskView = ({ onClose, task }: TaskViewProps) => {
+  const [isEdit, setIsEdit] = useState(false);
+  const { title, description, status, subtasks } = task;
+
+  const completedSubtasks = subtasks.filter(
+    (task: Subtask) => task.isCompleted
+  );
+
   return (
     <>
-      <div className="flex items-center gap-2 text-headingL">
-        <span>
-          Research pricing points of various competitors and trial different
-          business models
-        </span>
-        <button
-          onClick={onClose}
-          className="flex items-center justify-center w-4"
-        >
-          <Icon width="4" height="16" name="#icon-vertical-ellipsis" />
-        </button>
-      </div>
-      <div className="text-bodyL text-mediumGray">
-        We know what we're planning to build for version one. Now we need to
-        finalise the first pricing model we'll use. Keep iterating the subtasks
-        until we have a coherent proposition.
-      </div>
-      <TaskSection title="Subtasks (2 of 3)">
-        <Checkbox id="task-1" name="task-1" />
-        <Checkbox id="task-2" name="task-2" />
-        <Checkbox id="task-3" name="task-3" />
-      </TaskSection>
-      <div>
-        <TaskSection title="Current Status"></TaskSection>
-      </div>
+      {isEdit ? (
+        <TaskEdit onClose={() => setIsEdit(false)} task={task} />
+      ) : (
+        <>
+          <div className="flex items-center gap-2 text-headingL">
+            <span>{title}</span>
+            <button
+              onClick={() => {
+                setIsEdit(true);
+              }}
+              className="flex items-center justify-center w-4"
+            >
+              <Icon width="4" height="16" name="#icon-vertical-ellipsis" />
+            </button>
+          </div>
+          <div className="text-bodyL text-mediumGray">{description}</div>
+          <TaskSection
+            title={`Subtasks (${completedSubtasks.length} of ${subtasks.length})`}
+          >
+            {subtasks.map((subtask, index) => {
+              return (
+                <Checkbox
+                  id={`task-${index}`}
+                  name={`task-${index}`}
+                  title={subtask.title}
+                  checked={subtask.isCompleted}
+                  key={index}
+                />
+              );
+            })}
+          </TaskSection>
+          <div>
+            <TaskSection title="Current Status">{status}</TaskSection>
+          </div>
+        </>
+      )}
     </>
   );
 };
